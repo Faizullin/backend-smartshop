@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.aad600da.css",
-    "main.js": "/static/js/main.25b68cad.js",
+    "main.js": "/static/js/main.531c0f53.js",
     "static/js/787.6bea2872.chunk.js": "/static/js/787.6bea2872.chunk.js",
     "static/media/flaticon.svg?": "/static/media/flaticon.c24e081d69b2febbe7bd.svg",
     "static/media/flaticon.eot?": "/static/media/flaticon.f633e7d5b64c39ed614d.eot",
@@ -21,11 +21,11 @@
     "static/media/e9077e8f-178b-49c2-86c3-d2a3420ab3b9-395q-400h.undefined": "/static/media/e9077e8f-178b-49c2-86c3-d2a3420ab3b9-395q-400h.05fbe476a219e42c6278.undefined",
     "static/media/f3120c24-1a79-419e-b5ac-b6c96ed01cc7-mj3-600h.undefined": "/static/media/f3120c24-1a79-419e-b5ac-b6c96ed01cc7-mj3-600h.81a45977d635c5d1ff9e.undefined",
     "main.aad600da.css.map": "/static/css/main.aad600da.css.map",
-    "main.25b68cad.js.map": "/static/js/main.25b68cad.js.map",
+    "main.531c0f53.js.map": "/static/js/main.531c0f53.js.map",
     "787.6bea2872.chunk.js.map": "/static/js/787.6bea2872.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.aad600da.css",
-    "static/js/main.25b68cad.js"
+    "static/js/main.531c0f53.js"
   ]
 }

@@ -70,3 +70,38 @@ class ProductFiltersView(APIView):
             'product_types': product_types_data,
             'shops': shops_data,
         })
+    
+class PurchaseView(APIView):
+    def get(self, request, *args, **kwargs):
+        purchase_id = kwargs.get('id')
+        if purchase_id:
+            try:
+                purchase = Purchase.objects.get(id=purchase_id)
+                return Response(GetPurchaseSerializer(purchase).data, status=status.HTTP_200_OK)
+            except ObjectDoesNotExist:
+                return Response({'error': "No post found"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            purchases = Purchase.objects.all()
+            purchases_data = PurchaseSerializer(purchases, many=True).data
+            return Response(data=purchases_data)
+        
+class PurchaseOrderView(APIView):
+
+    def post(self, request, format='jpg'):
+
+    
+        return Response(up_file.name, status.HTTP_201_CREATED)
+
+class PurchaseOrderByBotView(APIView):
+    def get(self, request, *args, **kwargs):
+        purchase_id = kwargs.get('id')
+        if purchase_id:
+            try:
+                purchase = Purchase.objects.get(id=purchase_id)
+                return Response(GetPurchaseSerializer(purchase).data, status=status.HTTP_200_OK)
+            except ObjectDoesNotExist:
+                return Response({'error': "No post found"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            purchases = Purchase.objects.all()
+            purchases_data = PurchaseSerializer(purchases, many=True).data
+            return Response(data=purchases_data)

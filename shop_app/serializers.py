@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Shop, Product,Purchase
+from .models import Shop, Product,Purchase,PurchaseItem, CustomUser
 
 
 class ShopSerializer(serializers.ModelSerializer):
@@ -83,3 +83,43 @@ class GetProductSerializer(serializers.ModelSerializer):
         return obj.created_at.strftime('%d %B %Y')
     def get_updated_at(self, obj):
         return obj.updated_at.strftime('%d %B %Y')
+    
+
+
+class PurchaseItemSerializer(serializers.ModelSerializer):
+    purchase = PurchaseSerializer()
+
+    class Meta:
+        model = PurchaseItem
+        fields = ('id', 'price', 'quantity', 'product',)
+
+
+class PurchaseItemAddSerializer(serializers.ModelSerializer):
+    purchase_id = serializers.IntegerField()
+
+    class Meta:
+        model = PurchaseItem
+        fields = ('quantity', 'purchase_id')
+        extra_kwargs = {
+            'quantity': {'required': True},
+            'purchase_id': {'required': True},
+        }
+
+    def create(self, validated_data):
+        user = CustomUser.objects.get(id=self.context['request'].user.id)
+        
+        product = get_object_or_404(Purchase, id=validated_data['product_id'])
+        if product.quantity == 0 or product.is_available is False:
+            raise serializers.ValidationsError(
+                {'not available': 'the product is not available.'})
+
+        cart_item = CartItem.objects.create(
+            product=product,
+            user=user,
+            quantity=validated_data['quantity']
+            )
+        cart_item.save()
+        cart_item.add_amount()
+        product.quantity = product.quantity - cart_item.quantity
+        product.save()
+        return 

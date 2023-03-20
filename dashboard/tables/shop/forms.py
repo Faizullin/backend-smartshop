@@ -6,4 +6,4 @@ class ShopForm(forms.ModelForm):
     address = forms.CharField(max_length=100)
     class Meta:
         model = Shop
-        fields = ['name','owner','address']
+        fields = ['name','address']

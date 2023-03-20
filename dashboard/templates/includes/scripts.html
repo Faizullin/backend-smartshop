@@ -23,7 +23,7 @@
                   console.log("Error",key,val[0])
                 });
               }
-              //form.html(response);
+              form.html(response);
             }
           } );
         });
@@ -34,7 +34,6 @@
             
             const loadUrl = $(el).data('load-url')
             const url = $(el).data('url')
-            console.log(el,loadUrl,url)
             //var url = form.attr('item-id');
             $.get(loadUrl || url, {}, (response) => {
               if (response) {
@@ -42,7 +41,7 @@
                 modal.modal('show');
               } else {
                 
-                //form.html(response);
+                form.html(response);
               }
             } );
           }
@@ -55,14 +54,8 @@
               modal.modal('hide');
               location.reload();
             } else {
-              
               const form = $('#dashboard-form')
-              if(response.errors){
-                Object.entries(response.errors).forEach(([key,val]) => {
-                  console.log("Error",key,val[0])
-                });
-              }
-              //form.html(response);
+              form.html(response);
             }
           } );
         });

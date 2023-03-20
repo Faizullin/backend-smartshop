@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@8bwr2s=fy=uqcqk4#_#o)g0mv8-@7xo62rby_vi(gvif%7-jv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=True
 #MY
-MY_DEBUG = True
+MY_DEBUG = False
 
 
 
@@ -42,12 +42,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_filters',
+    'django_tables2',
     'corsheaders',
-    'dashboard_authentication',
-    'dashboard',
     'rest_framework',
     'rest_framework.authtoken',
-    #'rest_framework_simplejwt.token_blacklist',
+    'dashboard_authentication',
+    'dashboard',
     'shop_app',
 ]
 
@@ -65,20 +66,17 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'uhf_rfid_shop.urls'
 
 #MY
-LOGOUT_REDIRECT_URL = "dashboard:home"  # Route defined in home/urls.py
+LOGOUT_REDIRECT_URL = "dashboard:home"
 LOGIN_URL = 'dashboard_auth:login'
-TEMPLATE_DIR="/home/rfid-kassa.com/public_html/uhf_rfid_shop/templates"
-if MY_DEBUG:
-    TEMPLATE_DIR = os.path.join(BASE_DIR, "..\\templates") 
-    TEMPLATE_DIR="templates"
 
+#ENDMY
 
 
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -143,10 +141,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 
-#STATICFILES_DIRS = [
-#    BASE_DIR / "static",
-#    "/home/rfid-kassa.com/public_html/uhf_rfid_shop/static"
-#]
+#MY
 STATIC_ROOT =  '/home/rfid-kassa.com/public_html/static'
 MEDIA_ROOT = '/home/rfid-kassa.com/public_html/media'
 if MY_DEBUG:
@@ -156,6 +151,7 @@ if MY_DEBUG:
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+#ENDMY
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
