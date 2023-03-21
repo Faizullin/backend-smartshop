@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-@8bwr2s=fy=uqcqk4#_#o)g0mv8-@7xo62rby_vi(gvif%7-jv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=True
 #MY
-MY_DEBUG = False
+MY_DEBUG = True#False or True
 
 
 
@@ -145,12 +145,12 @@ MEDIA_URL = '/media/'
 STATIC_ROOT =  '/home/rfid-kassa.com/public_html/static'
 MEDIA_ROOT = '/home/rfid-kassa.com/public_html/media'
 if MY_DEBUG:
-    MEDIA_ROOT =  os.path.join(BASE_DIR, 'static') 
+    STATIC_ROOT =  os.path.join(BASE_DIR, 'static') 
     MEDIA_ROOT =  os.path.join(BASE_DIR, 'media') 
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 #ENDMY
 
 # Default primary key field type
@@ -169,6 +169,7 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 
