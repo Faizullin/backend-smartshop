@@ -155,3 +155,9 @@ class PurchaseSerializer(serializers.ModelSerializer):
 #         product.quantity = product.quantity - cart_item.quantity
 #         product.save()
 #         return 
+
+class UserProfileSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'email', 'address','username']

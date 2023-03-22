@@ -7,11 +7,12 @@ from rest_framework_simplejwt import views as jwt_views
 app_name = 'shop_app'
 
 urlpatterns = [
+    path('api/user', views.AuthProfileView.as_view()),
     path('api/products', views.ProductView.as_view()),
     path('api/products/<int:id>', views.ProductView.as_view()),
     path('api/filters', views.ProductFiltersView.as_view()),
     path('api/purchases', views.PurchaseView.as_view()),
-    path('api/purchases/<int:id>', views.PurchaseView.as_view()),
+    #path('api/purchases/<int:id>', views.PurchaseView.as_view()),
     path('api/purchase/order', views.PurchaseOrderView.as_view()),
     path('api/purchase/order_by_bot', views.PurchaseOrderByBotView.as_view()),
     path('api/token/', 

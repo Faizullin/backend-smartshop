@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 
 from pathlib import Path
 import os
+from datetime import timedelta
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = 'django-insecure-@8bwr2s=fy=uqcqk4#_#o)g0mv8-@7xo62rby_vi(gvif%7-jv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=True
 #MY
-MY_DEBUG = False
+MY_DEBUG = True
 
 
 
@@ -46,7 +47,8 @@ INSTALLED_APPS = [
     'django_tables2',
     'corsheaders',
     'rest_framework',
-    'rest_framework.authtoken',
+    #'rest_framework.authtoken',
+    'rest_framework_simplejwt',
     'dashboard_authentication',
     'dashboard',
     'shop_app',
@@ -167,21 +169,17 @@ CORS_ALLOW_CREDENTIALS = True
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P",
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
+        #'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
 }
 
 
 
-# REST_FRAMEWORK = {
-#      'DEFAULT_AUTHENTICATION_CLASSES': [
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-#       ],
-# }
-# SIMPLE_JWT = {
-#      'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
-#      'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
-#      'ROTATE_REFRESH_TOKENS': True,
-#      'BLACKLIST_AFTER_ROTATION': True
-# }
+SIMPLE_JWT = {
+     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=10),
+     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    #  'ROTATE_REFRESH_TOKENS': True,
+    #  'BLACKLIST_AFTER_ROTATION': True
+}

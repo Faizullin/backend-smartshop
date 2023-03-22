@@ -1,4 +1,5 @@
 from django.shortcuts import render, HttpResponse
+from django.http import Http404
 from .models import Shop, Product, Purchase, ProductType
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import viewsets, status, permissions,generics, filters
@@ -6,6 +7,8 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .serializers import *
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework_simplejwt.authentication import  JWTAuthentication
+
 
 # def main_app(request):
 #     return render(request,"app.html",{
@@ -15,56 +18,48 @@ from django_filters.rest_framework import DjangoFilterBackend
 def index(request):
     if request.method == 'POST':
         return HttpResponse(str("Hi"))
-        #activity_type = request.POST['activity_type']
-        #user = request.user
-        #log_activity.delay(activity_type, user)
-    # statistics = get_activity_statistics.delay().get()
-    #temperature = get_system_temperature.delay()
     return render(request, 'app.html', {'statistics': {
      'temperature': 0,
     }})
 
 
-# class PurchaseView(APIView):
-#     def get(self, request, *args, **kwargs):
-#         purchase_id = kwargs.get('id')
-#         if purchase_id:
-#             try:
-#                 purchase = Purchase.objects.get(id=purchase_id)
-#                 return Response(GetPurchaseSerializer(purchase).data, status=status.HTTP_200_OK)
-#             except ObjectDoesNotExist:
-#                 return Response({'error': "No post found"}, status=status.HTTP_404_NOT_FOUND)
-#         else:
-#             purchases = Purchase.objects.all()
-#             purchases_data = PurchaseSerializer(purchases, many=True).data
-#             return Response(data=purchases_data)
 
-# class ProductView(APIView):
-#     #authentication_classes = (TokenAuthentication,)
-#     #permission_classes = (IsAuthenticated,)
-#     def get(self, request, *args, **kwargs):
-#         product_id = kwargs.get('id')
-#         if product_id:
-#             try:
-#                 product = Product.objects.get(id=product_id)
-#                 return Response(GetProductSerializer(product).data, status=status.HTTP_200_OK)
-#             except ObjectDoesNotExist:
-#                 return Response({'error': "No post found"}, status=status.HTTP_404_NOT_FOUND)
-#         else:
-#             posts = Product.objects.all()
-#             shop_filters = request.query_params.getlist('shops[]', None)
-#             if shop_filters:
-#                 posts = posts.filter(shop__id__in=shop_filters)
-#             posts_data = ProductSerializer(posts, many=True,context={'request': request}).data
-#             return Response(data=posts_data)
+class AuthProfileView(APIView):
+    authentication_classes = [JWTAuthentication, ]
+    permission_classes = (permissions.IsAuthenticated,)
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        try:
+            user_data = CustomUser.objects.filter(id=user.id).first()
+            data = UserProfileSerializer(user_data).data
+            data['name'] = data['username']
+            data['age'] = 18
+            data['canDashboard'] = user_data.groups.filter(name="shop-owner").exists()
+            return Response(data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({'error': f"No user data with id {user} found"}, status=status.HTTP_404_NOT_FOUND)
+
+class AuthOrdersView(APIView):
+    authentication_classes = [JWTAuthentication, ]
+    permission_classes = (permissions.IsAuthenticated,)
+    def get(self, request, *args, **kwargs):
+        user = request.user
+        try:
+            user_data = Purchase.objects.get(user = user)
+            return Response(PurchaseSerializer(user_data).data, status=status.HTTP_200_OK)
+        except ObjectDoesNotExist:
+            return Response({'error': "No post found"}, status=status.HTTP_404_NOT_FOUND)
 
 class ProductView(generics.ListAPIView):
+    
+
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
     filterset_fields = ['type','shop']
     search_fields = ['name']
     ordering_fields = ['created_at','name']
+
 
     def get_object(self, product_id, user_id):
         '''
@@ -89,20 +84,16 @@ class ProductFiltersView(APIView):
         })
     
 class PurchaseView(generics.ListAPIView):
+    authentication_classes = [JWTAuthentication, ]
+    permission_classes = (permissions.IsAuthenticated,)
     queryset = Purchase.objects.all()
     serializer_class = PurchaseSerializer
-    # def get(self, request, *args, **kwargs):
-    #     purchase_id = kwargs.get('id')
-    #     if purchase_id:
-    #         try:
-    #             purchase = Purchase.objects.get(id=purchase_id)
-    #             return Response(GetPurchaseSerializer(purchase).data, status=status.HTTP_200_OK)
-    #         except ObjectDoesNotExist:
-    #             return Response({'error': "No post found"}, status=status.HTTP_404_NOT_FOUND)
-    #     else:
-    #         purchases = Purchase.objects.all()
-    #         purchases_data = PurchaseSerializer(purchases, many=True).data
-    #         return Response(data=purchases_data)
+
+    def get_queryset(self):
+        qs = super().get_queryset() 
+        user = self.request.user
+        return qs.filter(user = user)
+
         
     def post(self, request, *args, **kwargs):
         '''
