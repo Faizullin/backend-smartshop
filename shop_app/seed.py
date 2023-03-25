@@ -15,6 +15,7 @@ def seed():
     try:
         with transaction.atomic():
             groupOwner = GroupFactory.create(name="shop-owner")
+            groupBot = GroupFactory.create(name="bot")
 
             # Create superusers
             superuser1 = SuperuserFactory.create(
@@ -23,6 +24,13 @@ def seed():
                 password="password",
             )
             superuser1.groups.set([groupOwner])
+
+            botuser1 = UserFactory.create(
+                username="bot",
+                email="bot@example.com",
+                password="password",
+            )
+            botuser1.groups.set([groupBot])
 
             for _ in range(5):
                 user = UserFactory.create(
@@ -37,7 +45,7 @@ def seed():
             for _ in range(5):
                 shop = ShopFactory.create()
 
-            ProductTypeFactory.create(name='vegetables')
+            ProductTypeFactory.create(name='vegetables', )
 
             for _ in range(10):
                 ProductFactory.create()

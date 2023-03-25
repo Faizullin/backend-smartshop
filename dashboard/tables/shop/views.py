@@ -74,7 +74,7 @@ class ShopTable(tables.Table):
                 'Actions</button>'
                 '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">'
                 '<a class="dropdown-item edit-button" data-url="{% url \'dashboard:shop_edit\' pk=record.pk %}">Edit</a>'
-                '<a class="dropdown-item" href="{% url \'dashboard:product_index\' %}?shop={{ record.pk }}">Shops</a>'
+                '<a class="dropdown-item" href="{% url \'dashboard:product_index\' %}?shop={{ record.pk }}">Products</a>'
                 '<a class="">'
                     '<form method="post" action="{% url \'dashboard:shop_delete\' pk=record.pk %}">'
                         '{% csrf_token %}'
@@ -88,7 +88,6 @@ class ShopTable(tables.Table):
 
     class Meta:
         model = Shop
-        #template_name = "django_tables2/bootstrap.html"
         fields = ("id","name","address", "created_at" )
         attrs = {
             'class': 'table table-hover',
@@ -108,3 +107,6 @@ class ShopListView(LoginRequiredMixin,OwnerRequiredMixin,tables.SingleTableMixin
         context = super().get_context_data()
         context["form"] = ShopForm()
         return context
+    
+    def get_queryset(self, *args, **kwargs):
+        return Shop.objects.filter(owner = self.request.user)

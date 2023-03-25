@@ -11,7 +11,7 @@ class PurchaseForm(forms.ModelForm):
 
     class Meta:
         model = Purchase
-        fields = ['shop', 'user', 'products','status','total_price']
+        fields = [ 'user', 'products','status','total_price']
 
     # def __init__(self, *args, **kwargs):
     #     super(PurchaseForm, self).__init__(*args, **kwargs)

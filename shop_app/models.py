@@ -23,6 +23,7 @@ class Shop(models.Model):
 
 class ProductType(models.Model):
     name = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="product_type/%Y/%b/%d/", null=True, blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -36,7 +37,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2)
     shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     type = models.ForeignKey(ProductType, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="products/%Y/%b/%d/", null=True, blank=True)
+    image = models.ImageField(upload_to="product/%Y/%b/%d/", null=True, blank=True)
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -53,7 +54,6 @@ class Purchase(models.Model):
         ('DELIVERED', 'Delivered')
     ]
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=8, decimal_places=2)
     products = models.ManyToManyField(Product, through='PurchaseItem')
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='PENDING')
@@ -65,13 +65,6 @@ class Purchase(models.Model):
     def __str__(self):
         return f"{self.user} - {self.id}"
     
-    @property
-    def get_total_price(self):
-        total = sum(item.get_cost() for item in self.items.all())
-        # if self.discount:
-        #     discount_price = (self.discount / 100) * total
-        #     return int(total - discount_price)
-        return total
 
 
 
@@ -80,6 +73,7 @@ class PurchaseItem(models.Model):
     purchase = models.ForeignKey(Purchase, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
+    shop = models.ForeignKey(Shop, on_delete=models.CASCADE)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

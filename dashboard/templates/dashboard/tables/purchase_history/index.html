@@ -29,18 +29,16 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>purchase_history
+                        </div>
                         <!-- [ breadcrumb ] end -->
                         <div class="main-body">
                             <div class="page-wrapper">
-                                <!-- [ Main Content ] start -->
                                 <div class="row">
-                                    <!-- [ basic-table ] start -->
                                     <div class="col-xl-12">
                                         <div class="card">
                                             <div class="card-header">
                                                 <h5>Purchase Historys</h5>
-                                                <span class="d-block m-t-5"></span><button class="btn btn-primary create-button" data-toggle="modal" data-target="#dashboard-form-modal" data-url="{% url 'dashboard:shop_create' %}">Create</button>
+                                                <span class="d-block m-t-5"></span><button class="btn btn-primary create-button" data-toggle="modal" data-target="#dashboard-form-modal" data-url="{% url 'dashboard:purchase_history_create' %}">Create</button>
                                                 {% if filterset %}
                                                     <form action="" method="get" class="form form-inline">
                                                         {{ filterset.form.as_p }}
@@ -72,10 +70,9 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="dashboard-form" action="{% url 'dashboard:purchase_history_create' %}" enctype="multipart/form-data">
+                        <form id="dashboard-form" action="{% url 'dashboard:purchase_history_create' %}">
                             {% csrf_token %}
-                            {{ purchase_form.as_p }}
-                            {{ purchase_item_formset.as_p }}
+                            {{ form.as_p }}
                         </form>
                         </div>
                     <div class="modal-footer">
