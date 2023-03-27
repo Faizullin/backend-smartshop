@@ -48,6 +48,14 @@ def system_data(request):
     context['system_data'] = SystemData.objects.last()
     return render(request, 'dashboard/monitoring/server1-stats.html', context)
 
+
+
+
+
+
+
+
+
 @login_required()
 def server1(*args, **kwargs):
     return system_data(*args, **kwargs) 
