@@ -108,6 +108,7 @@ class ProductListView(LoginRequiredMixin,OwnerRequiredMixin,tables.SingleTableMi
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context["form"] = ProductForm(user= self.request.user)
+        context['segment'] = 'product_index'
         return context
     def get_queryset(self, *args, **kwargs):
         shops = Shop.objects.filter(owner = self.request.user)

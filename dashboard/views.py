@@ -16,8 +16,19 @@ from shop_app.models import *
 @login_required()
 def index(request):
     context = {'segment': 'index'}
-
     html_template = loader.get_template('dashboard/index.html')
+    return HttpResponse(html_template.render(context, request))
+
+@login_required()
+def welcome(request):
+    context = {'segment': 'welcome'}
+    html_template = loader.get_template('dashboard/welcome.html')
+    return HttpResponse(html_template.render(context, request))
+
+@login_required()
+def profile(request):
+    context = {'segment': 'profile'}
+    html_template = loader.get_template('dashboard/profile.html')
     return HttpResponse(html_template.render(context, request))
 
 

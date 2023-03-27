@@ -47,11 +47,11 @@ INSTALLED_APPS = [
     'django_tables2',
     'corsheaders',
     'rest_framework',
-    #'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'dashboard_authentication',
     'dashboard',
     'shop_app',
+    'monitoring',
 ]
 
 MIDDLEWARE = [

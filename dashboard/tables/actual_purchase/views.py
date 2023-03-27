@@ -160,6 +160,7 @@ class PurchaseListView(LoginRequiredMixin,OwnerRequiredMixin,tables.SingleTableM
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context["form"] = PurchaseForm()
+        context['segment'] = 'actual_purchase_index'
         return context
     
     def get_queryset(self, *args, **kwargs):

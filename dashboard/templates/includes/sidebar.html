@@ -2,13 +2,13 @@
 <nav class="pcoded-navbar">
     <div class="navbar-wrapper">
         <div class="navbar-brand header-logo">
-            <a href="{% url 'dashboard:pages' %}/" class="b-brand">
+            <a href="{% url 'dashboard:index' %}" class="b-brand">
                 <div class="b-bg">
                     <i class="feather icon-trending-up"></i>
                 </div>
                 <span class="b-title">Datta Able</span>
             </a>
-            <a class="mobile-menu" id="mobile-collapse" href="{% url 'dashboard:pages' %}javascript:"><span></span></a>
+            <a class="mobile-menu" id="mobile-collapse" href="{% url 'dashboard:index' %}"><span></span></a>
         </div>
         <div class="navbar-content scroll-div">
             <ul class="nav pcoded-inner-navbar">
@@ -17,17 +17,19 @@
                 </li>
                 <li data-username="dashboard Default Ecommerce CRM Analytics Crypto Project" 
                     class="nav-item {% if 'index' in segment %} active {% endif %}">
-                    <a href="{% url 'dashboard:pages' %}/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
+                    <a href="{% url 'dashboard:index' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-home"></i></span><span
                             class="pcoded-mtext">Dashboard</span></a>
                 </li>
                 <li data-username="Profile Page" 
                     class="nav-item {% if 'profile' in segment %} active {% endif %}">
-                    <a href="{% url 'dashboard:pages' %}/profile.html" class="nav-link">
+                    <a href="{% url 'dashboard:profile' %}" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-user"></i></span>
                             <span class="pcoded-mtext">Profile Page</span></a>
                 </li>
 
-
+                <li class="nav-item pcoded-menu-caption">
+                    <label>Tables</label>
+                </li>
                 <li data-username="Shop Dashboard Page" 
                     class="nav-item {% if 'shop_index' in segment %} active {% endif %}">
                     <a href="{% url 'dashboard:shop_index' %}" class="nav-link">
@@ -53,10 +55,10 @@
                             <span class="pcoded-mtext">Products</span></a>
                 </li>
 
-                <li class="nav-item pcoded-menu-caption">
+                <!-- <li class="nav-item pcoded-menu-caption">
                     <label>UI Element</label>
-                </li>
-                <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
+                </li> -->
+                <!-- <li data-username="basic components Button Alert Badges breadcrumb Paggination progress Tooltip popovers Carousel Cards Collapse Tabs pills Modal Grid System Typography Extra Shadows Embeds"
                     class="nav-item pcoded-hasmenu ">
                     <a href="{% url 'dashboard:pages' %}javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-box"></i></span><span
                             class="pcoded-mtext">Components</span></a>
@@ -72,8 +74,8 @@
                         <li class=""><a href="{% url 'dashboard:pages' %}/icon-feather.html" class="">Feather<span
                                 class="pcoded-badge label label-danger">NEW</span></a></li>
                     </ul>
-                </li>
-                <li class="nav-item pcoded-menu-caption">
+                </li> -->
+                <!-- <li class="nav-item pcoded-menu-caption">
                     <label>Forms & table</label>
                 </li>
                 <li data-username="form elements advance componant validation masking wizard picker select"
@@ -86,24 +88,24 @@
                     class="nav-item {% if 'tbl_bootstrap' in segment %} active {% endif %}">
                     <a href="{% url 'dashboard:pages' %}/tbl_bootstrap.html" class="nav-link "><span class="pcoded-micon"><i
                             class="feather icon-server"></i></span><span class="pcoded-mtext">Table</span></a>
-                </li>
+                </li> -->
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Chart & Maps</label>
+                    <label>Server list</label>
                 </li>
                 <li data-username="Charts Morris" 
-                    class="nav-item {% if 'chart-morris' in segment %} active {% endif %}">
-                    <a href="{% url 'dashboard:pages' %}/chart-morris.html" class="nav-link "><span
-                        class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Chart</span></a>
+                    class="nav-item {% if 'monitoring_server1' in segment %} active {% endif %}">
+                    <a href="{% url 'monitoring:server1' %}" class="nav-link "><span
+                        class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Server 1</span></a>
                 </li>
-                <li data-username="Maps Google" 
+                <!-- <li data-username="Maps Google" 
                     class="nav-item {% if 'map-google' in segment %} active {% endif %}">
                     <a href="{% url 'dashboard:pages' %}/map-google.html" class="nav-link "><span
                         class="pcoded-micon"><i class="feather icon-map"></i></span><span
-                        class="pcoded-mtext">Maps</span></a></li>
+                        class="pcoded-mtext">Maps</span></a></li> -->
                 <li class="nav-item pcoded-menu-caption">
-                    <label>Pages</label>
+                    <label>Action</label>
                 </li>
-                <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe"
+                <!-- <li data-username="Authentication Sign up Sign in reset password Change password Personal information profile settings map form subscribe"
                     class="nav-item pcoded-hasmenu">
                     <a href="{% url 'dashboard:pages' %}javascript:" class="nav-link "><span class="pcoded-micon"><i class="feather icon-lock"></i></span><span
                             class="pcoded-mtext">Authentication</span></a>
@@ -111,28 +113,28 @@
                         <li class=""><a href="{% url 'dashboard:pages' %}/register.html" class="" target="_blank">Sign UP</a></li>
                         <li class=""><a href="{% url 'dashboard:pages' %}/login.html" class="" target="_blank">Sign IN</a></li>
                     </ul>
-                </li>
+                </li> -->
 
-                <li data-username="Sample Page" class="nav-item"><a href="{% url 'dashboard:pages' %}/page-blank.html" class="nav-link"><span
-                        class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a>
-                </li>
+                <!-- <li data-username="Sample Page" class="nav-item"><a href="{% url 'dashboard:pages' %}/page-blank.html" class="nav-link"><span
+                    class="pcoded-micon"><i class="feather icon-sidebar"></i></span><span class="pcoded-mtext">Sample page</span></a>
+                </li> -->
 
                 <li data-username="Disabled Menu" class="nav-item">
                     <a href="{% url 'dashboard_auth:logout' %}" class="nav-link">
                         <span class="pcoded-micon"><i class="feather icon-power"></i></span><span class="pcoded-mtext">Logout</span>
                     </a>
                 </li>
-                <li class="nav-item pcoded-menu-caption">
+                <!-- <li class="nav-item pcoded-menu-caption">
                     <label>More Resources</label>
-                </li>                    
-                <li data-username="Support Page" class="nav-item ">
+                </li>                     -->
+                <!-- <li data-username="Support Page" class="nav-item ">
                     <a target="_blank" href="{% url 'dashboard:pages' %}https://appseed.us/support" class="nav-link">
                         <span class="pcoded-micon">
                             <i class="feather icon-headphones"></i>
                         </span>
                         <span class="pcoded-mtext">Support</span>
                     </a>
-                </li>                
+                </li>                 -->
             </ul>
         </div>
     </div>

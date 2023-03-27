@@ -21,6 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/auth/', include('dashboard_authentication.urls',namespace='dashboard_auth')),
     path('dashboard/', include('dashboard.urls',namespace='dashboard')),
+    path('dashboard/',include('monitoring.urls',namespace='monitoring')),
     path('', include('shop_app.urls')),
 ]
 

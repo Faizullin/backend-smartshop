@@ -106,6 +106,7 @@ class ShopListView(LoginRequiredMixin,OwnerRequiredMixin,tables.SingleTableMixin
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context["form"] = ShopForm()
+        context['segment'] = 'shop_index'
         return context
     
     def get_queryset(self, *args, **kwargs):
