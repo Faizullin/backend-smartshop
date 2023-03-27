@@ -51,3 +51,4 @@ def system_data(request):
 @login_required()
 def server1(*args, **kwargs):
     return system_data(*args, **kwargs) 
+#erko
