@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@8bwr2s=fy=uqcqk4#_#o)g0mv8-@7xo62rby_vi(gvif%7-jv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG=True
 #MY
-MY_DEBUG = True
+MY_DEBUG = False
 
 
 
@@ -68,7 +68,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'uhf_rfid_shop.urls'
 
 #MY
-LOGOUT_REDIRECT_URL = "dashboard:home"
+LOGOUT_REDIRECT_URL = "dashboard:welcome"
 LOGIN_URL = 'dashboard_auth:login'
 
 #ENDMY
@@ -86,7 +86,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                
             ],
         },
     },
@@ -169,7 +168,6 @@ CORS_ALLOW_CREDENTIALS = True
 REST_FRAMEWORK = {
     'DATETIME_FORMAT': "%m/%d/%Y %I:%M%P",
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        #'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
@@ -184,28 +182,28 @@ SIMPLE_JWT = {
     #  'BLACKLIST_AFTER_ROTATION': True
 }
 
+if MY_DEBUG:
+    import os
 
-import os
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'filters': {
-        'require_debug_true': {
-            '()': 'django.utils.log.RequireDebugTrue',
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'filters': {
+            'require_debug_true': {
+                '()': 'django.utils.log.RequireDebugTrue',
+            },
         },
-    },
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'filters': ['require_debug_true'],
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+                'filters': ['require_debug_true'],
+            },
         },
-    },
-    'loggers': {
-        'mylogger': {
-            'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-            'propagate': True,
+        'loggers': {
+            'mylogger': {
+                'handlers': ['console'],
+                'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+                'propagate': True,
+            },
         },
-    },
-}
+    }
