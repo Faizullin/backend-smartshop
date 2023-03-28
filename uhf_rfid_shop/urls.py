@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -24,10 +26,15 @@ urlpatterns = [
     path('dashboard/',include('monitoring.urls',namespace='monitoring')),
     path('', include('shop_app.urls')),
 ]
+if settings.MY_MONITORING:
+    urlpatterns = [
+        path('admin/', admin.site.urls),
+        path('dashboard/', include('dashboard.urls',namespace='dashboard')),
+        path('dashboard/auth/', include('dashboard_authentication.urls',namespace='dashboard_auth')),
+        path('dashboard/',include('monitoring.urls',namespace='monitoring')),
+    ]
 
 
-from django.conf import settings
-from django.conf.urls.static import static
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

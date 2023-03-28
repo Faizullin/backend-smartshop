@@ -1,6 +1,7 @@
 from django.db import models
 
 class SystemData(models.Model):
+    cpu_temp = models.FloatField()
     cpu_percent = models.FloatField()
     mem_percent = models.FloatField()
     disk_percent = models.FloatField()
