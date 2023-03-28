@@ -10,49 +10,7 @@ from . import views
 app_name = 'monitoring'
 
 urlpatterns = [
-
     path('monitoring/server1', views.server1, name='server1'),
-
+    path('api/monitoring/', views.apiServerData, name='api-monitoring'),
+    path('api/monitoring/start_record/', views.apiStartRecord, name='api-monitoring'),
 ]
-
-
-
-MAX_SAVE_NUMBER = 200
-
-
-
-from threading import Thread
-import time, psutil
-from monitoring.models import SystemData
-started_func = False
-
-def save_system_data():
-    global started_func
-
-    global MAX_SAVE_NUMBER
-    if started_func:
-        return
-    print("Start save_system_data")
-    while True:
-        # Get the system data
-        cpu_percent = psutil.cpu_percent()
-        mem_percent = psutil.virtual_memory().percent
-        disk_percent = psutil.disk_usage('/').percent
-        timestamp = int(time.time())
- 
-        # Create a new SystemData object and save it to the database
-        system_data = SystemData(cpu_percent=cpu_percent, mem_percent=mem_percent, disk_percent=disk_percent, timestamp=timestamp)
-        system_data.save()
-        current_count = SystemData.objects.count()
-        
-        if current_count > MAX_SAVE_NUMBER:
-            first_n_records = SystemData.objects.order_by('id').filter(id__lt = (system_data.pk - MAX_SAVE_NUMBER))
-            first_n_records.delete()
-            
-        time.sleep(7)
-
-
-t1 = Thread(target=save_system_data,daemon=True)
-t1.start()
-
-
