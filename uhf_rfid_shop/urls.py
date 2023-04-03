@@ -23,17 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('dashboard/auth/', include('dashboard_authentication.urls',namespace='dashboard_auth')),
     path('dashboard/', include('dashboard.urls',namespace='dashboard')),
-    path('dashboard/',include('monitoring.urls',namespace='monitoring')),
     path('', include('shop_app.urls')),
 ]
-if settings.MY_MONITORING:
-    urlpatterns = [
-        path('admin/', admin.site.urls),
-        path('dashboard/', include('dashboard.urls',namespace='dashboard')),
-        path('dashboard/auth/', include('dashboard_authentication.urls',namespace='dashboard_auth')),
-        path('dashboard/',include('monitoring.urls',namespace='monitoring')),
-    ]
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

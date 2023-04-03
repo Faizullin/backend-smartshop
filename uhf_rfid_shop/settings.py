@@ -51,7 +51,6 @@ INSTALLED_APPS = [
     'dashboard_authentication',
     'dashboard',
     'shop_app',
-    'monitoring',
 ]
 
 MIDDLEWARE = [

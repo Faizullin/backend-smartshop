@@ -22,7 +22,6 @@
                 <li class="nav-item pcoded-menu-caption">
                     <label>Tables</label>
                 </li>
-                {% if not MY_MONITORING %}
                     <li data-username="Shop Dashboard Page" 
                         class="nav-item {% if 'shop_index' in segment %} active {% endif %}">
                         <a href="{% url 'dashboard:shop_index' %}" class="nav-link">
@@ -47,28 +46,7 @@
                             <span class="pcoded-micon"><i class="feather icon-shop"></i></span>
                                 <span class="pcoded-mtext">Products</span></a>
                     </li>
-                {% else %}
-                    <li data-username="Shop Dashboard Page" 
-                        class="nav-item {% if 'user_index' in segment %} active {% endif %}">
-                        <a href="" class="nav-link">
-                            <span class="pcoded-micon"><i class="feather icon-shop"></i></span>
-                                <span class="pcoded-mtext">Users</span></a>
-                    </li>
-                {% endif %}
 
-                <li class="nav-item pcoded-menu-caption">
-                    <label>Server list</label>
-                </li>
-                <li data-username="Charts Morris" 
-                    class="nav-item {% if 'monitoring_server0' in segment %} active {% endif %}">
-                    <a href="{% url 'monitoring:server0' %}" class="nav-link "><span
-                        class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Server 0</span></a>
-                </li>
-                <li data-username="Charts Morris" 
-                    class="nav-item {% if 'monitoring_server1' in segment %} active {% endif %}">
-                    <a href="{% url 'monitoring:server1' %}" class="nav-link "><span
-                        class="pcoded-micon"><i class="feather icon-pie-chart"></i></span><span class="pcoded-mtext">Server 1</span></a>
-                </li>
                 <li class="nav-item pcoded-menu-caption">
                     <label>Action</label>
                 </li>
