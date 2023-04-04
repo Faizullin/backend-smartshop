@@ -37,9 +37,11 @@ class ProductTypeSerializer(serializers.ModelSerializer):
         return obj.updated_at.strftime('%d %B %Y')
 
 class ProductSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = Product
         fields = ['id','name', 'description','image', 'price','shop','type','created_at','updated_at']
+    
     
     created_at = serializers.SerializerMethodField()
     updated_at = serializers.SerializerMethodField()

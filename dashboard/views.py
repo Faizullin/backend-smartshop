@@ -1,8 +1,3 @@
-# -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
-
 from django import template
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
@@ -26,19 +21,15 @@ def welcome(request):
     return HttpResponse(html_template.render(context, request))
 
 @login_required()
-def profile(request):
-    context = {'segment': 'profile'}
+def profile_index(request):
+    context = {'segment': 'profile_index'}
     html_template = loader.get_template('dashboard/profile.html')
     return HttpResponse(html_template.render(context, request))
-
 
 @login_required()
 def pages(request):
     context = {}
-    # All resource paths end in .html.
-    # Pick out the html file name from the url. And load that template.
     try:
-
         load_template = request.path.split('/')[-1]
 
         if load_template == 'admin':
@@ -56,4 +47,3 @@ def pages(request):
     except:
         html_template = loader.get_template('dashboard/page-500.html')
         return HttpResponse(html_template.render(context, request))
-

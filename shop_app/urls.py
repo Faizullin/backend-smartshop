@@ -16,6 +16,7 @@ urlpatterns = [
     path('api/purchases', views.PurchaseView.as_view()),
     path('api/purchase/order', views.PurchaseView.as_view()),
     path('api/purchase/order_by_bot', views.PurchaseOrderByBotView.as_view()),
+    path('api/download-db', views.download_database),
     path('api/csrf',views.CsrfTokenView.as_view()),
     path('api/token/', 
           jwt_views.TokenObtainPairView.as_view(), 
@@ -23,6 +24,6 @@ urlpatterns = [
     path('api/token/refresh/', 
           jwt_views.TokenRefreshView.as_view(), 
           name ='token_refresh'),
-    #re_path(r'^(?!media|static).*$', views.index, name='main_app'),
-    path('', views.index, name='main_app'),
+    re_path(r'^(?!media|static).*$', views.index, name='main_app'),
+    #path('', views.index, name='main_app'),
 ]

@@ -58,12 +58,13 @@ class IdListFilterBackend(filters.BaseFilterBackend):
         return queryset
     
 class ProductView(generics.ListAPIView):
-    queryset = Product.objects.all()
+    queryset = Product.objects.order_by("-created_at")
     serializer_class = ProductSerializer
     filter_backends = [IdListFilterBackend,DjangoFilterBackend,filters.SearchFilter,filters.OrderingFilter]
     filterset_fields = ['type','shop']
     search_fields = ['name']
     ordering_fields = ['created_at','name']
+    
 
 class ProductFiltersView(generics.ListAPIView):
     def get(self, request, *args, **kwargs):
@@ -76,8 +77,6 @@ class ProductFiltersView(generics.ListAPIView):
             'product_types': product_types_data,
             'shops': shops_data,
         })
-    
-
 
 class PurchaseView(generics.ListAPIView):
     authentication_classes = [JWTAuthentication, ]
@@ -128,7 +127,23 @@ class PurchaseOrderByBotView(generics.ListAPIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+from django.http import HttpResponse
+from django.conf import settings
+import os
+
+def download_database(request):
+    db_path = settings.DATABASES['default']['NAME']
+    if os.path.exists(db_path):
+        with open(db_path, 'rb') as f:
+            db_file = f.read()
+        response = HttpResponse(db_file, content_type='application/x-sqlite3')
+        response['Content-Disposition'] = 'attachment; filename="database.db"'
+        return response
+    else:
+        return HttpResponse("Database file not found.")
+    
 class CsrfTokenView(APIView):
     def get(self, request, *args, **kwargs):
         csrf_token = get_token(request)
         return Response({'csrf_token': csrf_token})
+    

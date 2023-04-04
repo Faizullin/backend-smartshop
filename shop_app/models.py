@@ -45,6 +45,9 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+    # class Meta:
+    #     ordering = ['-created_at']
+    
 
 class Purchase(models.Model):
     STATUS_CHOICES = [
